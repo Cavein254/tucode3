@@ -3,7 +3,7 @@ import { Hero, TopBar, Subsection, Footer } from "../components/index";
 
 const HomePage = () => {
   return (
-    <div>
+    <div id="home">
       <TopBar />
       <Hero />
       <Subsection />
