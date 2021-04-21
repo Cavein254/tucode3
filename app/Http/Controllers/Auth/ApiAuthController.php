@@ -10,6 +10,8 @@ use illuminate\Support\Str;
 
 use App\Models\User;
 
+use function PHPUnit\Framework\returnSelf;
+
 class ApiAuthController extends Controller
 {
     public function register(Request $request)
@@ -46,12 +48,20 @@ class ApiAuthController extends Controller
                 $response = ['token' => $token];
                 return response($response, 200);
             } else {
-                $reponse = ["message" => "password mismatch"];
+                $response = ["message" => "password mismatch"];
                 return response($response, 422);
             }
         } else {
             $response = ["message" => "User does not exist"];
             return response($response, 422);
         }
+    }
+
+    public function logout(Request $request)
+    {
+        $token = $request->user()->token();
+        $token->revoke();
+        $response = ['message' => 'logout success'];
+        return response($response, 200);
     }
 }
