@@ -18,4 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::Group(['middleware' => ['cors', 'json.response']], function () {
+    Route::post('/login', 'Auth\ApiAuthController@login')->name('login');
+    Route::post('/register', 'Auth\ApiAuthController@register')->name('register');
+    Route::post('logout', 'Auth\ApiAuthController@logout')->name('logout');
 });
