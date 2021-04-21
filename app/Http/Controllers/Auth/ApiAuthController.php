@@ -20,12 +20,14 @@ class ApiAuthController extends Controller
             'name' => 'required|string|max:60',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|min:4|confirmed',
+            'type' => 'integer',
         ]);
         if ($validator->fails()) {
             return response(['errors' => $validator->errors()->all()], 422);
         }
         $request['password'] = Hash::make($request['password']);
         $request['remember_token'] = Str::random(15);
+        $request['type'] = $request['type'] ? $request['type'] : 0;
         $user = User::create($request->toArray());
         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
         $response = ['token' => $token];
