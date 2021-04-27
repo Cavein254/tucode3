@@ -1,9 +1,11 @@
-import React from "react";
+import React, {useEffect} from "react";
+import {getAllQuestion}  from '../../api';
 import { Row, Col, Container } from "react-bootstrap";
 import { FaEye, FaThumbsUp } from "react-icons/fa";
 import "./styles.css";
 
 function Questions() {
+
   return (
     <Container className="question_wrapper">
       <Row>

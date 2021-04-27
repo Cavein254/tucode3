@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,11 +14,14 @@ use App\Http\Controllers\Auth;
 |
 */
 
+
 Route::middleware('auth:api')->group(function () {
-    Route::post('logout', 'Auth\ApiAuthController@logout')->name('logout');
+    Route::post('/new', '\App\Http\Controllers\ArticleController@store');
+    Route::get('/articles', '\App\Http\Controllers\ArticleController@index');
+    Route::post('/logout', '\App\Http\Controllers\Auth\ApiAuthController@logout');
 });
 
 Route::Group(['middleware' => ['cors', 'json.response']], function () {
-    Route::post('/login', 'Auth\ApiAuthController@login')->name('login');
-    Route::post('/register', 'Auth\ApiAuthController@register')->name('register');
+    Route::post('/login', '\App\Http\Controllers\Auth\ApiAuthController@login')->name('login');
+    Route::post('/register', '\App\Http\Controllers\Auth\ApiAuthController@register')->name('register');
 });

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ArticleController extends Controller
 {
@@ -13,7 +15,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $response = ['message' =>  '<function name> function'];
+        $response = Article::all();
         return response($response, 200);
     }
 
@@ -26,7 +28,15 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        $response = ['message' =>  '<function name> function'];
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string',
+            'body' => 'required|string',
+        ]);
+        if ($validator->fails()) {
+            return response(['errors' => $validator->errors()->all()], 422);
+        }
+
+        $response = Article::create($request->toArray());
         return response($response, 200);
     }
 

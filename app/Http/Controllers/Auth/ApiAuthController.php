@@ -4,13 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use illuminate\Support\Facades\Hash;
-use illuminate\Support\Facades\Validator;
-use illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 use App\Models\User;
 
-use function PHPUnit\Framework\returnSelf;
 
 class ApiAuthController extends Controller
 {
@@ -22,6 +21,7 @@ class ApiAuthController extends Controller
             'password' => 'required|string|min:4|confirmed',
             'type' => 'integer',
         ]);
+
         if ($validator->fails()) {
             return response(['errors' => $validator->errors()->all()], 422);
         }
@@ -38,7 +38,7 @@ class ApiAuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email',
-            'password' => 'required|string|min:4|confirmed',
+            'password' => 'required|string|min:4',
         ]);
         if ($validator->fails()) {
             return response(['errors' => $validator->errors()->all()], 422);
